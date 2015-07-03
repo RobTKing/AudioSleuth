@@ -195,7 +195,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1B462CA71B470406006562C0 /* Build configuration list for PBXProject "AudioSlueth" */;
+			buildConfigurationList = 1B462CA71B470406006562C0 /* Build configuration list for PBXProject "AudioSleuth" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -409,7 +409,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1B462CA71B470406006562C0 /* Build configuration list for PBXProject "AudioSlueth" */ = {
+		1B462CA71B470406006562C0 /* Build configuration list for PBXProject "AudioSleuth" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1B462CBF1B470406006562C0 /* Debug */,

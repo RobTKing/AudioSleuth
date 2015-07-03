@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:AudioSlueth.xcodeproj">
+      location = "self:/Users/Rob-Mac/Documents/Developer/iOS/Projects/AudioSlueth/AudioSleuth.xcodeproj">
    </FileRef>
 </Workspace>
