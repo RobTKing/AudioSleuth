@@ -16,18 +16,6 @@ struct AudioDataExtractor {
     var audioFileRef : UnsafeMutablePointer<ExtAudioFileRef>?
     let bytesPerPacket : Int = Int(sizeof(Float)) * Int(CHAR_BIT)
     
-    let clientASBD : AudioStreamBasicDescription = AudioStreamBasicDescription.init(
-        44100,
-        kAudioFormatLinearPCM,
-        kAudioFormatFlagsNativeFloatPacked,
-        Int(sizeof(Float)) * Int(CHAR_BIT),
-        1,
-        1,
-        sizeof(Float),
-        sizeof(Float),
-        0
-    )
-    
     func getDataFromAudioFile(audioURL : NSURL) {
         let audioFileOpenError : OSStatus = ExtAudioFileOpenURL(audioURL, audioFileRef!)
         
@@ -37,5 +25,18 @@ struct AudioDataExtractor {
         }
     }
     
-    
+    // This is the default AudioStreamBasicDescription Builder
+    func createASBD() -> AudioStreamBasicDescription {
+        var clientASBD : AudioStreamBasicDescription?
+        clientASBD?.mSampleRate = 44100
+        clientASBD?.mFormatID = kAudioFormatLinearPCM
+        clientASBD?.mFormatFlags = kAudioFormatFlagsNativeFloatPacked
+        clientASBD?.mBitsPerChannel = UInt32(8 * sizeof(Float))
+        clientASBD?.mChannelsPerFrame = 1
+        clientASBD?.mFramesPerPacket = 1
+        clientASBD?.mBytesPerFrame = UInt32(sizeof(Float))
+        clientASBD?.mBytesPerPacket = UInt32(sizeof(Float))
+        
+        return clientASBD!
+    }
 }
