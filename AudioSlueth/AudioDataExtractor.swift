@@ -17,14 +17,15 @@ struct AudioDataExtractor {
     let bytesPerPacket : Int = Int(sizeof(Float)) * Int(CHAR_BIT)
     
     let clientASBD : AudioStreamBasicDescription = AudioStreamBasicDescription.init(
-        44100, // SampleRate
-        kAudioFormatLinearPCM, // AudioFormatID
-        kAudioFormatFlagsNativeFloatPacked, // AudioFormatFlags
-        Int(sizeof(Float)) * Int(CHAR_BIT), // BytesPerPacket
-        1, // ChannelsPerFrame
-        1, // FramesPerPacket
-        sizeof(Float), //BytesPerFrame
-        sizeof(Float) //BytesPerPacket
+        44100,
+        kAudioFormatLinearPCM,
+        kAudioFormatFlagsNativeFloatPacked,
+        Int(sizeof(Float)) * Int(CHAR_BIT),
+        1,
+        1,
+        sizeof(Float),
+        sizeof(Float),
+        0
     )
     
     func getDataFromAudioFile(audioURL : NSURL) {
@@ -34,7 +35,7 @@ struct AudioDataExtractor {
         if audioFileOpenError != noErr {
             NSLog("Cound not open audio URL, error: %@", audioFileOpenError)
         }
-        
-        
     }
+    
+    
 }
