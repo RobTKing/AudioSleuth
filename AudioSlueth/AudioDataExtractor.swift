@@ -12,17 +12,26 @@ import AVFoundation
 struct AudioDataExtractor {
     
     // Properties for Audio
-    var error : NSError?
-    var audioFileRef : UnsafeMutablePointer<ExtAudioFileRef>?
-    let bytesPerPacket : Int = Int(sizeof(Float)) * Int(CHAR_BIT)
+    
     
     func getDataFromAudioFile(audioURL : NSURL) {
+        var error : NSError?
+        var audioFileRef : UnsafeMutablePointer<ExtAudioFileRef>?
+        
         let audioFileOpenError : OSStatus = ExtAudioFileOpenURL(audioURL, audioFileRef!)
         
         // An error occured during file open, log the error
         if audioFileOpenError != noErr {
             NSLog("Cound not open audio URL, error: %@", audioFileOpenError)
         }
+        
+        let defaultASBD = createASBD()
+        var defaultASBDRef : UnsafeMutablePointer<AudioStreamBasicDescription>?
+        let audioFileSetError = ExtAudioFileSetProperty(audioFileRef, kExtAudioFileProperty_ClientDataFormat, sizeof(defaultASBD), defaultASBDRef)
+    }
+    
+    init() {
+        
     }
     
     // This is the default AudioStreamBasicDescription Builder
