@@ -26,8 +26,14 @@ struct AudioDataExtractor {
         }
         
         let defaultASBD = createASBD()
-        var defaultASBDRef : UnsafeMutablePointer<AudioStreamBasicDescription>?
-        let audioFileSetError = ExtAudioFileSetProperty(audioFileRef, kExtAudioFileProperty_ClientDataFormat, sizeof(defaultASBD), defaultASBDRef)
+        var defaultASBDRef : UnsafePointer<AudioStreamBasicDescription>?
+        let audioFileSetError = ExtAudioFileSetProperty(audioFileRef!.memory, kExtAudioFileProperty_ClientDataFormat, UInt32(sizeofValue(defaultASBD)), defaultASBDRef!)
+        
+        if audioFileSetError != noErr {
+            NSLog("Cound not set audio file, error: %@", audioFileSetError)
+        }
+        
+        
     }
     
     init() {
@@ -45,6 +51,7 @@ struct AudioDataExtractor {
         clientASBD?.mFramesPerPacket = 1
         clientASBD?.mBytesPerFrame = UInt32(sizeof(Float))
         clientASBD?.mBytesPerPacket = UInt32(sizeof(Float))
+        clientASBD?.mReserved = 0
         
         return clientASBD!
     }

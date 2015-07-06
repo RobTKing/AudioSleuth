@@ -363,6 +363,7 @@
 				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = AudioSlueth/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apptreats.AudioSleuth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -385,6 +386,7 @@
 				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = AudioSlueth/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apptreats.AudioSleuth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
