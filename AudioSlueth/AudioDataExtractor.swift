@@ -18,13 +18,8 @@ struct AudioDataExtractor {
         let bufferFrames = 4096
         var data = [Float](count: bufferFrames, repeatedValue: 0.0)
         
-        // Setting defualt # of channels to 1
-        let audioBuffer = AudioBuffer.init(
-        mNumberChannels: 1,
-        mDataByteSize: UInt32(sizeofValue(data)),
-        mData: &data)
-        
-        var clientASBD = ASBDBuilder.build()
+        var clientASBD : AudioStreamBasicDescription = ASBDBuilder.build()
+        let (audioBuffer, audioBufferList) = setupBufferAndBufferList(numberOfChannels: 1, dataPointer: &data)
         let audioFileOpenError : OSStatus = ExtAudioFileOpenURL(audioURL, &audioFileRef!)
         
         // An error occured during file open, log the error
@@ -37,7 +32,21 @@ struct AudioDataExtractor {
         if audioFileSetError != noErr {
             NSLog("Cound not set audio file, error: %@", audioFileSetError)
         }
+    }
+    
+    func setupBufferAndBufferList (numberOfChannels numberOfChannels : Int, dataPointer : UnsafeMutablePointer<[Float]>) -> (audioBuffer : AudioBuffer, audioBufferList : AudioBufferList) {
         
+        let audioBuffer = AudioBuffer.init(
+            mNumberChannels: UInt32(numberOfChannels),
+            mDataByteSize: UInt32(sizeofValue(dataPointer.memory)),
+            mData: dataPointer)
         
+        // set default number of buffers to 1
+        let auidoBufferList = AudioBufferList.init(
+            mNumberBuffers: 1,
+            mBuffers: audioBuffer
+        )
+        
+        return (audioBuffer, auidoBufferList)
     }
 }
