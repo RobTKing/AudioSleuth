@@ -19,6 +19,11 @@ struct AudioDataExtractor {
         let bufferFrames = 4096
         var data = [Float](count: bufferFrames, repeatedValue: 0.0)
         
+        let audioBuffer = AudioBuffer.init(
+        mNumberChannels: 1,
+        mDataByteSize: UInt32(sizeofValue(data)),
+        mData: &data)
+        
         let audioFileOpenError : OSStatus = ExtAudioFileOpenURL(audioURL, &audioFileRef!)
         
         // An error occured during file open, log the error
@@ -51,12 +56,4 @@ struct AudioDataExtractor {
         return clientASBD
     }
     
-    func createAudioBuffer(data : [Float]) -> AudioBuffer {
-        var defaultAudiobuffer = AudioBuffer()
-        defaultAudiobuffer.mNumberChannels = 1
-        defaultAudiobuffer.mDataByteSize = UInt32(sizeofValue(data))
-        defaultAudiobuffer.mData = data
-        
-        return defaultAudiobuffer
-    }
 }
