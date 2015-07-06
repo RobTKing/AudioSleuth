@@ -13,10 +13,13 @@ struct AudioDataExtractor {
     
     // Properties for Audio
     
-    
     func getDataFromAudioFile(audioURL : NSURL) {
-        var error : NSError?
         var audioFileRef : UnsafeMutablePointer<ExtAudioFileRef>?
+        var defaultASBDRef : UnsafePointer<AudioStreamBasicDescription>?
+        let bufferFrames = 4096
+        var data = [Float](count: bufferFrames, repeatedValue: 0.0)
+        let defaultASBD = createASBD()
+        
         
         let audioFileOpenError : OSStatus = ExtAudioFileOpenURL(audioURL, audioFileRef!)
         
@@ -25,18 +28,12 @@ struct AudioDataExtractor {
             NSLog("Cound not open audio URL, error: %@", audioFileOpenError)
         }
         
-        let defaultASBD = createASBD()
-        var defaultASBDRef : UnsafePointer<AudioStreamBasicDescription>?
         let audioFileSetError = ExtAudioFileSetProperty(audioFileRef!.memory, kExtAudioFileProperty_ClientDataFormat, UInt32(sizeofValue(defaultASBD)), defaultASBDRef!)
         
         if audioFileSetError != noErr {
             NSLog("Cound not set audio file, error: %@", audioFileSetError)
         }
         
-        
-    }
-    
-    init() {
         
     }
     
@@ -54,5 +51,14 @@ struct AudioDataExtractor {
         clientASBD.mReserved = 0
         
         return clientASBD
+    }
+    
+    func createAudioBuffer(data : [Float]) -> AudioBuffer {
+        var defaultAudiobuffer = AudioBuffer()
+        defaultAudiobuffer.mNumberChannels = 1
+        defaultAudiobuffer.mDataByteSize = UInt32(sizeofValue(data))
+        defaultAudiobuffer.mData = data
+        
+        return defaultAudiobuffer
     }
 }
