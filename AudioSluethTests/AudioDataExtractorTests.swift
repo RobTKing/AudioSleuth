@@ -24,10 +24,4 @@ class AudioDataExtractorTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testCreateASBDReturnsADefualtAudioSteamBasicDescription() {
-        testAudioDataExtractor = AudioDataExtractor()
-        let testASBD = testAudioDataExtractor?.createASBD()
-        XCTAssertEqual(testASBD!.mSampleRate, 44100, "The default sample rate should be 44100 frames per second")
-    }
 }
