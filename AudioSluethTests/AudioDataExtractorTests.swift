@@ -7,6 +7,8 @@
 //
 
 import XCTest
+import Foundation
+import AVFoundation
 @testable import AudioSlueth
 
 class AudioDataExtractorTests: XCTestCase {
@@ -24,7 +26,7 @@ class AudioDataExtractorTests: XCTestCase {
     }
     
     func testCreateASBDReturnsADefualtAudioSteamBasicDescription() {
-        testAudioDataExtractor = AudioDataExtractor.self
+        testAudioDataExtractor = AudioDataExtractor()
         let testASBD = testAudioDataExtractor?.createASBD()
         XCTAssertEqual(testASBD!.mSampleRate, 44100, "The default sample rate should be 44100 frames per second")
     }

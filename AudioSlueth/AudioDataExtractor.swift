@@ -42,17 +42,17 @@ struct AudioDataExtractor {
     
     // This is the default AudioStreamBasicDescription Builder
     func createASBD() -> AudioStreamBasicDescription {
-        var clientASBD : AudioStreamBasicDescription?
-        clientASBD?.mSampleRate = 44100
-        clientASBD?.mFormatID = kAudioFormatLinearPCM
-        clientASBD?.mFormatFlags = kAudioFormatFlagsNativeFloatPacked
-        clientASBD?.mBitsPerChannel = UInt32(8 * sizeof(Float))
-        clientASBD?.mChannelsPerFrame = 1
-        clientASBD?.mFramesPerPacket = 1
-        clientASBD?.mBytesPerFrame = UInt32(sizeof(Float))
-        clientASBD?.mBytesPerPacket = UInt32(sizeof(Float))
-        clientASBD?.mReserved = 0
+        var clientASBD : AudioStreamBasicDescription = AudioStreamBasicDescription()
+        clientASBD.mSampleRate = 44100
+        clientASBD.mFormatID = kAudioFormatLinearPCM
+        clientASBD.mFormatFlags = kAudioFormatFlagsNativeFloatPacked
+        clientASBD.mBitsPerChannel = UInt32(8 * sizeof(Float))
+        clientASBD.mChannelsPerFrame = 1
+        clientASBD.mFramesPerPacket = 1
+        clientASBD.mBytesPerFrame = UInt32(sizeof(Float))
+        clientASBD.mBytesPerPacket = UInt32(sizeof(Float))
+        clientASBD.mReserved = 0
         
-        return clientASBD!
+        return clientASBD
     }
 }
