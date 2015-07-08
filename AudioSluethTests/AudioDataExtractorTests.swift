@@ -28,7 +28,7 @@ class AudioDataExtractorTests: XCTestCase {
     func testGetDataFromAudioFileReturnsNSData() {
         let testBundle = NSBundle(forClass: AudioDataExtractorTests.self)
         if let testAudioFilePath = testBundle.pathForResource("get-cats", ofType: "m4r") {
-            var audioFileData : NSData? = testAudioDataExtractor.getDataFromAudioFile(NSURL.fileURLWithPath(testAudioFilePath))
+            let audioFileData : NSData? = testAudioDataExtractor.getDataFromAudioFile(NSURL.fileURLWithPath(testAudioFilePath))
             XCTAssertNotNil(audioFileData, "getDataFromAudioFile returned a nil value. Check getDataFromAudioFile and AudioDataProcessor.processData()")
             
         } else {

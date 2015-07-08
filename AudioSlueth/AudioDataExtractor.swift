@@ -18,30 +18,45 @@ struct AudioDataExtractor {
         let bufferFrames = 4096
         var data = [Float](count: bufferFrames, repeatedValue: 0.0)
         var clientASBD : AudioStreamBasicDescription = ASBDBuilder.build()
-        var mutableAudioData : NSMutableData = NSMutableData()
-        let (audioBuffer, audioBufferList) = setupBufferAndBufferList(numberOfChannels: 1, dataPointer: &data)
+        let mutableAudioData : NSMutableData = NSMutableData()
+        var ioFrames : UInt32 = 0
+        var totalFrames = 0
+        
+        var audioBufferList = setupBufferAndBufferList(numberOfChannels: 1, dataPointer: &data)
         let audioFileOpenError : OSStatus = ExtAudioFileOpenURL(audioURL, &audioFileRef)
         
         // An error occured during file open, log the error
         if audioFileOpenError != noErr {
             NSLog("Cound not open audio URL, error: %@", audioFileOpenError)
+            return nil
         }
         
         let audioFileSetError = ExtAudioFileSetProperty(audioFileRef, kExtAudioFileProperty_ClientDataFormat, UInt32(sizeofValue(clientASBD)), &clientASBD)
         
         if audioFileSetError != noErr {
             NSLog("Cound not set audio file, error: %@", String(audioFileSetError))
+            return nil
         }
         
-        if mutableAudioData.length > 0 {
-            let audioData = mutableAudioData
+        while (ioFrames != 0) {
+            let audioFileReadError : OSStatus = ExtAudioFileRead(audioFileRef, &ioFrames, &audioBufferList)
+            if (audioFileReadError != noErr) {
+                break;
+            }
+            mutableAudioData.appendBytes(data, length: bufferFrames)
+            totalFrames += Int(ioFrames)
+        }
+        
+        let audioData = mutableAudioData
+        
+        if audioData.length > 0 {
             return audioData
         } else {
             return nil
         }
     }
     
-    func setupBufferAndBufferList (numberOfChannels numberOfChannels : Int, dataPointer : UnsafeMutablePointer<[Float]>) -> (audioBuffer : AudioBuffer, audioBufferList : AudioBufferList) {
+    func setupBufferAndBufferList (numberOfChannels numberOfChannels : Int, dataPointer : UnsafeMutablePointer<[Float]>) -> (AudioBufferList) {
         
         let audioBuffer = AudioBuffer.init(
             mNumberChannels: UInt32(numberOfChannels),
@@ -54,6 +69,6 @@ struct AudioDataExtractor {
             mBuffers: audioBuffer
         )
         
-        return (audioBuffer, auidoBufferList)
+        return (auidoBufferList)
     }
 }
