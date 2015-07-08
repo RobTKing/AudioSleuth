@@ -13,7 +13,7 @@ import AVFoundation
 
 class AudioDataExtractorTests: XCTestCase {
     
-    var testAudioDataExtractor : AudioDataExtractor?
+    var testAudioDataExtractor : AudioDataExtractor = AudioDataExtractor()
     
     override func setUp() {
         super.setUp()
@@ -23,5 +23,16 @@ class AudioDataExtractorTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+    }
+    
+    func testGetDataFromAudioFileReturnsNSData() {
+        let testBundle = NSBundle(forClass: AudioDataExtractorTests.self)
+        if let testAudioFilePath = testBundle.pathForResource("get-cats", ofType: "m4r") {
+            var audioFileData : NSData? = testAudioDataExtractor.getDataFromAudioFile(NSURL.fileURLWithPath(testAudioFilePath))
+            XCTAssertNotNil(audioFileData, "getDataFromAudioFile returned a nil value. Check getDataFromAudioFile and AudioDataProcessor.processData()")
+            
+        } else {
+            XCTAssertNotNil(nil, "The testAudioFilePath was unable to find get-cats.m4r resource")
+        }
     }
 }

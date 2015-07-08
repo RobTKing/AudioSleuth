@@ -17,6 +17,7 @@
 		1BC90C001B4B2C0100C9354C /* AudioDataProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC90BFF1B4B2C0100C9354C /* AudioDataProcessor.swift */; };
 		1BC90C021B4B2C4100C9354C /* ASBDBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC90C011B4B2C4100C9354C /* ASBDBuilderTests.swift */; };
 		1BC90C041B4B2C5200C9354C /* AudioDataProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC90C031B4B2C5200C9354C /* AudioDataProcessorTests.swift */; };
+		1BC90C051B4B37E400C9354C /* get-cats.m4r in Resources */ = {isa = PBXBuildFile; fileRef = 1B462CCF1B470D26006562C0 /* get-cats.m4r */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -241,6 +242,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BC90C051B4B37E400C9354C /* get-cats.m4r in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
